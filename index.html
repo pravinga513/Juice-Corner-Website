@@ -45,6 +45,14 @@
             z-index: 50;
         }
 
+        #logo {
+            font-size: 1.875rem;
+            color: #16a34a;
+            text-decoration: none;
+            font-weight: 700;
+            transition: font-size 0.3s ease;
+        }
+
         header nav {
             display: flex;
             justify-content: space-between;
@@ -71,25 +79,38 @@
         .header-actions {
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
 
-        /* Cart button styles */
-        #cart-button {
+        /* Generic button style for header */
+        .header-btn {
             display: flex;
             align-items: center;
             gap: 0.25rem;
             padding: 0.5rem 1rem;
-            background-color: #22c55e; /* Green */
             color: #ffffff; /* White */
             border-radius: 9999px; /* Makes it a pill shape */
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        #cart-button {
+            background-color: #22c55e; /* Green */
         }
 
         #cart-button:hover {
             background-color: #16a34a; /* Darker green */
         }
+        
+        #login-button, #logout-button {
+            background-color: #6b7280; /* Medium Gray */
+        }
+        #login-button:hover, #logout-button:hover {
+            background-color: #4b5563; /* Darker Gray */
+        }
+
 
         #cart-count {
             background-color: #ffffff; /* White */
@@ -102,7 +123,6 @@
         
         /* Mobile menu (hamburger icon) button */
         #mobile-menu-button {
-            margin-left: 1rem;
             color: #4b5563; /* Medium gray */
             background: none;
             border: none;
@@ -134,7 +154,7 @@
         
         /* --- 4. HERO SECTION (TOP BANNER) --- */
         .hero-bg {
-            background-image: url('https://placehold.co/1200x800/A8E6CF/333333?text=Fresh+Juices');
+            background-image: url('Img/Orange Zest.png');
             background-size: cover;
             background-position: center;
             padding: 4rem 0; /* Adjusted padding for mobile */
@@ -498,6 +518,16 @@
         }
         
         /* --- 12. RESPONSIVE STYLES (for different screen sizes) --- */
+        /* For very small mobile screens to fix header */
+        @media (max-width: 420px) {
+            #logo {
+                font-size: 1.5rem;
+            }
+            .header-btn .btn-text {
+                display: none;
+            }
+        }
+
         /* For tablets and larger */
         @media (min-width: 768px) {
             #mobile-menu-button { display: none; }
@@ -528,7 +558,7 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <a href="#" class="pacifico-font" style="font-size: 1.875rem; color: #16a34a; text-decoration: none; font-weight: 700;">Juice Corner</a>
+            <a href="#" id="logo" style="line-height: 25px;" class="pacifico-font">Juice Corner</a>
             <div class="main-nav">
                 <a href="#home">Home</a>
                 <a href="#juices">Our Juices</a>
@@ -536,9 +566,17 @@
                 <a href="#contact">Contact</a>
             </div>
             <div class="header-actions">
-                <button id="cart-button">
+                <button id="login-button" class="header-btn">
+                    <i class="ph-user"></i>
+                    <span class="btn-text">Login</span>
+                </button>
+                <button id="logout-button" class="header-btn" style="display: none;">
+                    <i class="ph-sign-out"></i>
+                    <span class="btn-text">Logout</span>
+                </button>
+                <button id="cart-button" class="header-btn">
                     <i class="ph-shopping-cart"></i>
-                    <span style="font-weight: 600;">Cart</span>
+                    <span class="btn-text">Cart</span>
                     <span id="cart-count">0</span>
                 </button>
                 <button id="mobile-menu-button">
@@ -571,7 +609,7 @@
             <div class="juices-grid">
                 <!-- Juice Card 1 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/F4A261/FFFFFF?text=Orange+Zest" alt="Orange Juice">
+                    <img src="Img/Orange Zest.png" alt="Orange Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Orange Zest</h3>
                         <p>A classic boost of Vitamin C to kickstart your day with pure, tangy goodness.</p>
@@ -583,7 +621,7 @@
                 </div>
                 <!-- Juice Card 2 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/84A98C/FFFFFF?text=Green+Detox" alt="Green Juice">
+                    <img src="Img/Green Detox.png" alt="Green Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Green Detox</h3>
                         <p>A cleansing blend of spinach, kale, apple, and cucumber to rejuvenate your body.</p>
@@ -595,7 +633,7 @@
                 </div>
                 <!-- Juice Card 3 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/E56B6F/FFFFFF?text=Berry+Blast" alt="Berry Juice">
+                    <img src="Img/Berry Blast.png" alt="Berry Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Berry Blast</h3>
                         <p>An antioxidant-rich mix of strawberries, blueberries, and raspberries for a sweet treat.</p>
@@ -607,7 +645,7 @@
                 </div>
                  <!-- Juice Card 4 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/FFD166/FFFFFF?text=Tropical+Sunrise" alt="Tropical Juice">
+                    <img src="Img/Tropical Sunrise.png" alt="Tropical Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Tropical Sunrise</h3>
                         <p>Escape to paradise with this exotic blend of mango, pineapple, and passionfruit.</p>
@@ -619,7 +657,7 @@
                 </div>
                  <!-- Juice Card 5 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/EF476F/FFFFFF?text=Ruby+Red" alt="Pomegranate Juice">
+                    <img src="Img/Ruby Red.png" alt="Pomegranate Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Ruby Red</h3>
                         <p>A powerful and vibrant juice made from pure pomegranate for heart health.</p>
@@ -631,10 +669,238 @@
                 </div>
                  <!-- Juice Card 6 -->
                 <div class="juice-card">
-                    <img src="https://placehold.co/600x400/118AB2/FFFFFF?text=Cool+Cucumber" alt="Cucumber Juice">
+                    <img src="Img/Cool Cucumber.png" alt="Cucumber Juice">
                     <div class="card-content">
                         <h3 class="juice-name">Cool Cucumber</h3>
                         <p>The ultimate refreshment with cucumber, mint, and a hint of lime. Perfect for a hot day.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="120">₹120</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 7 -->
+                <div class="juice-card">
+                    <img src="Img/Apple Crisp.png" alt="Apple Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Apple Crisp</h3>
+                        <p>Pure, crisp, and sweet juice from the freshest hand-picked apples. A timeless classic.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="130">₹130</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 8 -->
+                <div class="juice-card">
+                    <img src="Img/Carrot Glow.png" alt="Carrot Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Carrot Glow</h3>
+                        <p>A sweet and earthy mix of carrot and ginger, packed with beta-carotene for healthy skin.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="140">₹140</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 9 -->
+                <div class="juice-card">
+                    <img src="Img/Minty Melon.png" alt="Watermelon Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Minty Melon</h3>
+                        <p>Hydrating watermelon juice with a refreshing hint of mint. The perfect summer drink.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="110">₹110</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 10 -->
+                <div class="juice-card">
+                    <img src="Img/Beetroot Buzz.png" alt="Beetroot Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Beetroot Buzz</h3>
+                        <p>An earthy blend of beetroot, carrot, and apple for a vibrant energy boost.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="150">₹150</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 11 -->
+                <div class="juice-card">
+                    <img src="Img/Pineapple Punch.png" alt="Pineapple Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Pineapple Punch</h3>
+                        <p>Pure tropical delight from sweet and tangy pineapples. Great for digestion.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="130">₹130</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 12 -->
+                <div class="juice-card">
+                    <img src="Img/Lemon-Ginger Zing.png" alt="Lemon Ginger Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Lemon-Ginger Zing</h3>
+                        <p>A zesty and warming concoction of lemon and ginger to fire up your metabolism.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="100">₹100</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 13 -->
+                <div class="juice-card">
+                    <img src="Img/Celery Cleanse.png" alt="Celery Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Celery Cleanse</h3>
+                        <p>Crisp celery and green apple juice. A perfect low-calorie hydrator.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="160">₹160</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 14 -->
+                <div class="juice-card">
+                    <img src="Img/Grape Delight.png" alt="Grape Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Grape Delight</h3>
+                        <p>Sweet and luscious juice from fresh red grapes, packed with antioxidants.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="140">₹140</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 15 -->
+                <div class="juice-card">
+                    <img src="Img/Kiwi Quencher.png" alt="Kiwi Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Kiwi Quencher</h3>
+                        <p>A tangy and sweet blast of Vitamin C from fresh kiwis and a hint of apple.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="170">₹170</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 16 -->
+                <div class="juice-card">
+                    <img src="Img/Sweet Melon.png" alt="Muskmelon Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Sweet Melon</h3>
+                        <p>The refreshing and hydrating taste of sweet muskmelon, perfect for summer.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="120">₹120</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 17 -->
+                <div class="juice-card">
+                    <img src="Img/ABC Miracle.png" alt="ABC Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">ABC Miracle</h3>
+                        <p>The famous Apple, Beetroot, and Carrot blend. A miracle drink for your health.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="160">₹160</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 18 -->
+                <div class="juice-card">
+                    <img src="Img/Lychee Love.png" alt="Lychee Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Lychee Love</h3>
+                        <p>An exotic and fragrant juice made from sweet, succulent lychees.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="180">₹180</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 19 -->
+                <div class="juice-card">
+                    <img src="Img/Guava Goodness.png" alt="Guava Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Guava Goodness</h3>
+                        <p>Rich and smooth juice from pink guavas, high in fiber and Vitamin C.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="130">₹130</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 20 -->
+                <div class="juice-card">
+                    <img src="Img/Tamarind Twist.png" alt="Tamarind Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Tamarind Twist</h3>
+                        <p>A tangy and sweet traditional cooler made from tamarind pulp.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="110">₹110</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 21 -->
+                <div class="juice-card">
+                    <img src="Img/Amla Power.png" alt="Amla Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Amla Power</h3>
+                        <p>A potent shot of Indian gooseberry (Amla) with ginger to supercharge your immunity.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="120">₹120</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 22 -->
+                <div class="juice-card">
+                    <img src="Img/Sugarcane Fresh.png" alt="Sugarcane Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Sugarcane Fresh</h3>
+                        <p>The ultimate street-style refresher. Pure sugarcane juice with a hint of lemon.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="90">₹90</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 23 -->
+                <div class="juice-card">
+                    <img src="Img/Jamun Joy.png" alt="Jamun Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Jamun Joy</h3>
+                        <p>A unique, slightly astringent and sweet juice from Indian Blackberry (Jamun).</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="150">₹150</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 24 -->
+                <div class="juice-card">
+                    <img src="Img/Peach Paradise.png" alt="Peach Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Peach Paradise</h3>
+                        <p>Experience the sweet, fuzzy delight of ripe peaches blended to perfection.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="170">₹170</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 25 -->
+                <div class="juice-card">
+                    <img src="Img/Papaya Passion.png" alt="Papaya Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Papaya Passion</h3>
+                        <p>A smooth, tropical juice from ripe papayas, great for digestion and skin.</p>
                         <div class="card-footer">
                             <span class="juice-price" data-price="120">₹120</span>
                             <button class="add-to-cart-btn">Add to Cart</button>
@@ -650,7 +916,7 @@
         <div class="container">
             <div class="about-content">
                 <div>
-                    <img src="https://placehold.co/600x400/A8DADC/FFFFFF?text=Our+Story" alt="Our Story">
+                    <img src="Img/our-story.png" alt="Our Story">
                 </div>
                 <div class="about-text">
                     <h2>Our Story of Freshness</h2>
@@ -724,6 +990,32 @@
             </form>
         </div>
     </div>
+    
+    <!-- Login Modal -->
+     <div id="login-modal" class="modal invisible">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login / Save Details</h2>
+                <button id="close-login-modal" class="close-modal-btn">&times;</button>
+            </div>
+            <p style="font-size: 0.875rem; color: #6b7280; margin-top: -0.5rem; margin-bottom: 1.5rem;">Save your details for faster checkout next time!</p>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-name">Full Name</label>
+                    <input type="text" id="login-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-contact-no">Contact No.</label>
+                    <input type="tel" id="login-contact-no" name="contact-no" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-address">Delivery Address</label>
+                    <input type="text" id="login-address" name="address" required>
+                </div>
+                <button type="submit" id="save-details-btn" style="width: 100%; padding: 0.75rem; background-color: #22c55e; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">Save Details</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Toast Notification -->
     <div id="toast">
@@ -732,26 +1024,42 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Element selections
+            // --- 1. ELEMENT SELECTIONS ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
             const cartCountEl = document.getElementById('cart-count');
             const toast = document.getElementById('toast');
+            
+            // Cart elements
             const cartButton = document.getElementById('cart-button');
             const cartModal = document.getElementById('cart-modal');
             const closeCartModalBtn = document.getElementById('close-cart-modal');
-            const contactModal = document.getElementById('contact-modal');
-            const closeContactModalBtn = document.getElementById('close-contact-modal');
-            const checkoutBtn = document.getElementById('checkout-btn');
-            const contactForm = document.getElementById('contact-form');
             const cartItemsContainer = document.getElementById('cart-items');
             const cartTotalEl = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
 
-            // App state
+            // Contact form elements
+            const contactModal = document.getElementById('contact-modal');
+            const closeContactModalBtn = document.getElementById('close-contact-modal');
+            const contactForm = document.getElementById('contact-form');
+            
+            // Login elements
+            const loginButton = document.getElementById('login-button');
+            const logoutButton = document.getElementById('logout-button');
+            const loginModal = document.getElementById('login-modal');
+            const closeLoginModalBtn = document.getElementById('close-login-modal');
+            const loginForm = document.getElementById('login-form');
+
+
+            // --- 2. APP STATE ---
             let cart = [];
+            let user = null;
 
-            // --- MODAL VISIBILITY FUNCTIONS ---
+
+            // --- 3. CORE FUNCTIONS ---
+
+            // --- MODAL VISIBILITY ---
             function showModal(modal) {
                 modal.classList.remove('invisible');
             }
@@ -769,6 +1077,34 @@
                     toast.style.opacity = '0';
                     toast.style.transform = 'translateY(2.5rem)';
                 }, 2000);
+            }
+
+            // --- LOGIN/AUTH LOGIC ---
+            function checkLoginState() {
+                const savedUser = localStorage.getItem('userDetails');
+                if (savedUser) {
+                    user = JSON.parse(savedUser);
+                    loginButton.style.display = 'none';
+                    logoutButton.style.display = 'flex';
+                } else {
+                    user = null;
+                    loginButton.style.display = 'flex';
+                    logoutButton.style.display = 'none';
+                }
+            }
+            
+            function prefillForms() {
+                 if (user) {
+                    // Pre-fill contact form
+                    contactForm.name.value = user.name;
+                    contactForm['contact-no'].value = user.contactNo;
+                    contactForm.address.value = user.address;
+                    
+                    // Pre-fill login form for editing
+                    loginForm.name.value = user.name;
+                    loginForm['contact-no'].value = user.contactNo;
+                    loginForm.address.value = user.address;
+                }
             }
 
             // --- CART LOGIC ---
@@ -841,7 +1177,7 @@
             }
 
 
-            // --- EVENT LISTENERS ---
+            // --- 4. EVENT LISTENERS ---
             mobileMenuButton.addEventListener('click', () => {
                 mobileMenu.classList.toggle('active');
             });
@@ -867,21 +1203,51 @@
                     removeItem(index);
                 }
             });
-
+            
+            // Modal open/close listeners
             cartButton.addEventListener('click', () => showModal(cartModal));
             closeCartModalBtn.addEventListener('click', () => hideModal(cartModal));
             cartModal.addEventListener('click', (e) => {
                 if (e.target === cartModal) hideModal(cartModal);
             });
 
+            loginButton.addEventListener('click', () => {
+                prefillForms(); // Prefill in case user wants to edit
+                showModal(loginModal);
+            });
+            logoutButton.addEventListener('click', () => {
+                localStorage.removeItem('userDetails');
+                checkLoginState();
+                showToast('You have been logged out.');
+            });
+            closeLoginModalBtn.addEventListener('click', () => hideModal(loginModal));
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) hideModal(loginModal);
+            });
+            
+            // Form submission listeners
             checkoutBtn.addEventListener('click', () => {
                 hideModal(cartModal);
+                prefillForms();
                 showModal(contactModal);
             });
 
             closeContactModalBtn.addEventListener('click', () => hideModal(contactModal));
             contactModal.addEventListener('click', (e) => {
                 if (e.target === contactModal) hideModal(contactModal);
+            });
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const userDetails = {
+                    name: e.target.name.value,
+                    contactNo: e.target['contact-no'].value,
+                    address: e.target.address.value,
+                };
+                localStorage.setItem('userDetails', JSON.stringify(userDetails));
+                checkLoginState();
+                hideModal(loginModal);
+                showToast('Your details have been saved!');
             });
 
             contactForm.addEventListener('submit', (e) => {
@@ -925,7 +1291,8 @@
                 });
             });
 
-            // Initial cart update
+            // --- 5. INITIALIZATION ---
+            checkLoginState();
             updateCart();
         });
     </script>

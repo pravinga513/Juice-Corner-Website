@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juice Corner - Your Online Juice Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <style>
+        /* --- 1. GLOBAL STYLES & BASIC SETUP --- */
+        /* These styles apply to the whole page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* Light gray background */
+            color: #1f2937; /* Dark gray text */
+            margin: 0;
+            padding-top: 80px; /* Leave space for the fixed header */
+        }
+
+        .pacifico-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* --- 2. LAYOUT CONTAINER --- */
+        /* This class is used to center content on the page */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* --- 3. HEADER & NAVIGATION --- */
+        header {
+            background-color: #ffffff; /* White */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 50;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        
+        /* Desktop navigation links */
+        .main-nav {
+            display: none; /* Hidden by default, shown on larger screens */
+            gap: 2rem;
+        }
+        
+        .main-nav a {
+            color: #4b5563; /* Medium gray */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .main-nav a:hover {
+            color: #22c55e; /* Green */
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Cart button styles */
+        #cart-button {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem 1rem;
+            background-color: #22c55e; /* Green */
+            color: #ffffff; /* White */
+            border-radius: 9999px; /* Makes it a pill shape */
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #cart-button:hover {
+            background-color: #16a34a; /* Darker green */
+        }
+
+        #cart-count {
+            background-color: #ffffff; /* White */
+            color: #22c55e; /* Green */
+            border-radius: 9999px;
+            padding: 0 0.5rem;
+            font-size: 0.875rem;
+            margin-left: 0.25rem;
+        }
+        
+        /* Mobile menu (hamburger icon) button */
+        #mobile-menu-button {
+            margin-left: 1rem;
+            color: #4b5563; /* Medium gray */
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        /* The mobile menu itself */
+        #mobile-menu {
+            display: none; /* Hidden by default, shown with JavaScript */
+            background-color: #ffffff; /* White */
+            border-top: 1px solid #e5e7eb; /* Light gray border */
+        }
+
+        #mobile-menu.active {
+            display: block;
+        }
+        
+        #mobile-menu a {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            color: #4b5563; /* Medium gray */
+            text-decoration: none;
+        }
+
+        #mobile-menu a:hover {
+            background-color: #f9fafb; /* Light gray */
+        }
+        
+        /* --- 4. HERO SECTION (TOP BANNER) --- */
+        .hero-bg {
+            background-image: url('https://placehold.co/1200x800/A8E6CF/333333?text=Fresh+Juices');
+            background-size: cover;
+            background-position: center;
+            padding: 4rem 0; /* Adjusted padding for mobile */
+            color: #ffffff; /* White text */
+        }
+
+        .hero-bg .container {
+            text-align: center;
+            background-color: rgba(0,0,0,0.4); /* Semi-transparent black overlay */
+            padding: 2.5rem 1.5rem;
+            border-radius: 0.75rem;
+        }
+
+        .hero-bg h1 {
+            font-size: 2.5rem; /* Mobile-first font size */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-bg p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-bg a {
+            display: inline-block;
+            background-color: #22c55e; /* Green */
+            color: #ffffff; /* White */
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .hero-bg a:hover {
+            background-color: #16a34a; /* Darker green */
+            transform: scale(1.05);
+        }
+
+        /* --- 5. SHARED SECTION STYLES --- */
+        /* Common styles for the Juices, About, etc. sections */
+        section {
+            padding: 4rem 0; /* Adjusted padding for mobile */
+        }
+        section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        /* --- 6. JUICES SECTION --- */
+        #juices { background-color: #ffffff; /* White */ }
+
+        .juices-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 1 column by default */
+            gap: 2.5rem;
+        }
+        
+        .juice-card {
+            background-color: #ffffff; /* White */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .juice-card:hover {
+            transform: translateY(-8px); /* Lifts the card up slightly */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .juice-card img {
+            width: 100%;
+            height: 14rem;
+            object-fit: cover;
+        }
+        
+        .juice-card .card-content {
+            padding: 1.5rem;
+        }
+
+        .juice-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .juice-card p {
+            color: #4b5563; /* Medium gray */
+            margin-bottom: 1rem;
+        }
+
+        .juice-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .juice-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #22c55e; /* Green */
+        }
+
+        .add-to-cart-btn {
+            background-color: #1f2937; /* Dark gray */
+            color: #ffffff; /* White */
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #22c55e; /* Green */
+        }
+        
+        /* --- 7. ABOUT SECTION --- */
+        .about-content {
+            display: flex;
+            flex-direction: column; /* Stacks image and text on mobile */
+            align-items: center;
+            gap: 3rem;
+        }
+        .about-content img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .about-text p {
+            color: #4b5563; /* Medium gray */
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+        
+        /* --- 8. FOOTER --- */
+        footer {
+            background-color: #1f2937; /* Dark gray */
+            color: #ffffff; /* White */
+            padding: 3rem 0;
+            text-align: center;
+        }
+        footer h3 {
+            font-size: 1.5rem;
+            color: #22c55e; /* Green */
+            margin-bottom: 1rem;
+        }
+        footer p {
+            margin-bottom: 1.5rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .social-links a {
+            color: #ffffff; /* White */
+            transition: color 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #22c55e; /* Green */
+        }
+        .copyright {
+            color: #9ca3af; /* Light gray */
+        }
+        .project-by {
+            font-size: 0.875rem;
+            color: #6b7280; /* Medium gray */
+            margin-top: 0.5rem;
+        }
+
+        /* --- 9. MODAL (POPUP) STYLES --- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Semi-transparent black background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            padding: 1rem; /* Add padding for small screens */
+            box-sizing: border-box;
+        }
+
+        .modal.invisible {
+            visibility: hidden;
+            opacity: 0;
+        }
+        
+        .modal-content {
+            background-color: #ffffff; /* White */
+            width: 100%; /* Full width on small screens */
+            max-width: 500px;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+            max-height: 90vh; /* Max height to prevent overflow */
+            overflow-y: auto; /* Allow scrolling within the modal */
+        }
+        
+        .modal.invisible .modal-content {
+            transform: translateY(-2.5rem);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .modal-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: left;
+            margin: 0;
+        }
+        .close-modal-btn {
+            background: none;
+            border: none;
+            color: #6b7280; /* Medium gray */
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .close-modal-btn:hover {
+            color: #1f2937; /* Dark gray */
+        }
+        
+        /* Cart item list */
+        #cart-items {
+            margin-bottom: 1rem;
+            max-height: 16rem; /* You can adjust this value */
+            overflow-y: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb; /* Light gray */
+        }
+        .cart-item-details { width: 40%; }
+        .cart-item-details p:first-child { font-weight: 600; }
+        .cart-item-details p:last-child { font-size: 0.875rem; color: #6b7280; }
+        
+        /* Quantity (+/-) buttons in cart */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity-btn {
+            background-color: #e5e7eb; /* Light gray */
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+        }
+        .quantity-btn:hover { background-color: #d1d5db; }
+        
+        .item-total-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .item-total { font-weight: 700; width: 4rem; text-align: right; }
+        .remove-item-btn {
+            color: #ef4444; /* Red */
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .remove-item-btn:hover { color: #b91c1c; }
+
+        /* Cart total and checkout button */
+        .cart-summary {
+            border-top: 1px solid #e5e7eb; /* Light gray */
+            padding-top: 1rem;
+        }
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        #checkout-btn {
+            width: 100%;
+            margin-top: 1rem;
+            background-color: #22c55e; /* Green */
+            color: #ffffff; /* White */
+            padding: 0.75rem 0;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #checkout-btn:hover { background-color: #16a34a; }
+        #checkout-btn:disabled {
+            background-color: #9ca3af; /* Light gray */
+            cursor: not-allowed;
+        }
+        
+        /* --- 10. FORM STYLES (in contact modal) --- */
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151; /* Medium-dark gray */
+            margin-bottom: 0.25rem;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db; /* Light gray */
+            border-radius: 0.375rem;
+            box-sizing: border-box;
+            font-size: 1rem; /* Prevent iOS zoom on focus */
+        }
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #22c55e; /* Green outline */
+        }
+        
+        /* --- 11. TOAST NOTIFICATION --- */
+        #toast {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            right: 1.25rem;
+            text-align: center;
+            background-color: #22c55e; /* Green */
+            color: #ffffff; /* White */
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(2.5rem);
+            transition: all 0.3s ease;
+            z-index: 110;
+        }
+        
+        /* --- 12. RESPONSIVE STYLES (for different screen sizes) --- */
+        /* For tablets and larger */
+        @media (min-width: 768px) {
+            #mobile-menu-button { display: none; }
+            .main-nav { display: flex; }
+            .hero-bg { padding: 8rem 0; }
+            .hero-bg h1 { font-size: 3.75rem; }
+            section { padding: 5rem 0; }
+            .juices-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-content { flex-direction: row; }
+            .about-content > div { width: 50%; }
+            #toast {
+                left: auto;
+                bottom: 1.25rem;
+                right: 1.25rem;
+            }
+        }
+
+        /* For laptops and larger */
+        @media (min-width: 1024px) {
+            .juices-grid { grid-template-columns: repeat(3, 1fr); }
+            section h2 { font-size: 2.25rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="pacifico-font" style="font-size: 1.875rem; color: #16a34a; text-decoration: none; font-weight: 700;">Juice Corner</a>
+            <div class="main-nav">
+                <a href="#home">Home</a>
+                <a href="#juices">Our Juices</a>
+                <a href="#about">About Us</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="header-actions">
+                <button id="cart-button">
+                    <i class="ph-shopping-cart"></i>
+                    <span style="font-weight: 600;">Cart</span>
+                    <span id="cart-count">0</span>
+                </button>
+                <button id="mobile-menu-button">
+                    <i class="ph-list" style="font-size: 2rem;"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu">
+            <a href="#home">Home</a>
+            <a href="#juices">Our Juices</a>
+            <a href="#about">About Us</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg">
+        <div class="container">
+            <h1>Drink Fresh, Live Fresh.</h1>
+            <p>Experience the taste of nature with our cold-pressed juices, made from the freshest organic fruits and vegetables.</p>
+            <a href="#juices">Explore Our Menu</a>
+        </div>
+    </section>
+
+    <!-- Juices Section -->
+    <section id="juices">
+        <div class="container">
+            <h2>Our Signature Juices</h2>
+            <div class="juices-grid">
+                <!-- Juice Card 1 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/F4A261/FFFFFF?text=Orange+Zest" alt="Orange Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Orange Zest</h3>
+                        <p>A classic boost of Vitamin C to kickstart your day with pure, tangy goodness.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="120">₹120</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 2 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/84A98C/FFFFFF?text=Green+Detox" alt="Green Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Green Detox</h3>
+                        <p>A cleansing blend of spinach, kale, apple, and cucumber to rejuvenate your body.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="150">₹150</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Juice Card 3 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/E56B6F/FFFFFF?text=Berry+Blast" alt="Berry Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Berry Blast</h3>
+                        <p>An antioxidant-rich mix of strawberries, blueberries, and raspberries for a sweet treat.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="140">₹140</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Juice Card 4 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/FFD166/FFFFFF?text=Tropical+Sunrise" alt="Tropical Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Tropical Sunrise</h3>
+                        <p>Escape to paradise with this exotic blend of mango, pineapple, and passionfruit.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="160">₹160</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Juice Card 5 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/EF476F/FFFFFF?text=Ruby+Red" alt="Pomegranate Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Ruby Red</h3>
+                        <p>A powerful and vibrant juice made from pure pomegranate for heart health.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="180">₹180</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Juice Card 6 -->
+                <div class="juice-card">
+                    <img src="https://placehold.co/600x400/118AB2/FFFFFF?text=Cool+Cucumber" alt="Cucumber Juice">
+                    <div class="card-content">
+                        <h3 class="juice-name">Cool Cucumber</h3>
+                        <p>The ultimate refreshment with cucumber, mint, and a hint of lime. Perfect for a hot day.</p>
+                        <div class="card-footer">
+                            <span class="juice-price" data-price="120">₹120</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div>
+                    <img src="https://placehold.co/600x400/A8DADC/FFFFFF?text=Our+Story" alt="Our Story">
+                </div>
+                <div class="about-text">
+                    <h2>Our Story of Freshness</h2>
+                    <p>
+                        Juice Corner was born from a simple idea: to make healthy and delicious juices accessible to everyone. We believe in the power of nature, which is why we partner with local farmers to source the freshest organic produce. Every bottle is a promise of purity, flavor, and a step towards a healthier lifestyle.
+                    </p>
+                    <p>
+                        Our cold-press process ensures that every drop is packed with essential vitamins, minerals, and enzymes. We're more than just a juice shop; we're a community dedicated to wellness.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <h3 class="pacifico-font">Juice Corner</h3>
+            <p>Stay connected with us for fresh updates and offers!</p>
+            <div class="social-links">
+                <a href="#"><i class="ph-facebook-logo" style="font-size: 2rem;"></i></a>
+                <a href="#"><i class="ph-instagram-logo" style="font-size: 2rem;"></i></a>
+                <a href="#"><i class="ph-twitter-logo" style="font-size: 2rem;"></i></a>
+            </div>
+            <p class="copyright">&copy; 2024 Juice Corner. All Rights Reserved.</p>
+            <p class="project-by">Project by Neha Bhosale & Aniruddha Sasne</p>
+        </div>
+    </footer>
+    
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal invisible">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Cart</h2>
+                <button id="close-cart-modal" class="close-modal-btn">&times;</button>
+            </div>
+            <div id="cart-items">
+                <!-- Cart items will be injected here by JS -->
+            </div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span id="cart-total">₹0.00</span>
+                </div>
+                <button id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Details Modal -->
+     <div id="contact-modal" class="modal invisible">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Details</h2>
+                <button id="close-contact-modal" class="close-modal-btn">&times;</button>
+            </div>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-no">Contact No.</label>
+                    <input type="tel" id="contact-no" name="contact-no" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <button type="submit" id="place-order-btn" style="width: 100%; padding: 0.75rem; background-color: #22c55e; color: white; border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer;">Place Order on WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast">
+        <!-- Message will be set by JS -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Element selections
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartCountEl = document.getElementById('cart-count');
+            const toast = document.getElementById('toast');
+            const cartButton = document.getElementById('cart-button');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartModalBtn = document.getElementById('close-cart-modal');
+            const contactModal = document.getElementById('contact-modal');
+            const closeContactModalBtn = document.getElementById('close-contact-modal');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const contactForm = document.getElementById('contact-form');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+
+            // App state
+            let cart = [];
+
+            // --- MODAL VISIBILITY FUNCTIONS ---
+            function showModal(modal) {
+                modal.classList.remove('invisible');
+            }
+            
+            function hideModal(modal) {
+                modal.classList.add('invisible');
+            }
+            
+            // --- TOAST NOTIFICATION ---
+            function showToast(message) {
+                toast.textContent = message;
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateY(0)';
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateY(2.5rem)';
+                }, 2000);
+            }
+
+            // --- CART LOGIC ---
+            function updateCart() {
+                // Render cart items
+                cartItemsContainer.innerHTML = '';
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p style="color: #6b7280;">Your cart is empty.</p>';
+                } else {
+                    cart.forEach((item, index) => {
+                        const itemEl = document.createElement('div');
+                        itemEl.className = 'cart-item';
+                        itemEl.innerHTML = `
+                            <div class="cart-item-details">
+                                <p>${item.name}</p>
+                                <p>₹${item.price.toFixed(2)}</p>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrement-btn" data-index="${index}">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn increment-btn" data-index="${index}">+</button>
+                            </div>
+                            <div class="item-total-group">
+                                <p class="item-total">₹${(item.price * item.quantity).toFixed(2)}</p>
+                                <button class="remove-item-btn" data-index="${index}">&times;</button>
+                            </div>
+                        `;
+                        cartItemsContainer.appendChild(itemEl);
+                    });
+                }
+                
+                // Update total
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                cartTotalEl.textContent = `₹${total.toFixed(2)}`;
+                
+                // Update cart icon count
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCountEl.textContent = totalItems;
+                
+                // Enable/disable checkout button
+                checkoutBtn.disabled = cart.length === 0;
+            }
+
+            function addToCart(name, price) {
+                const existingItem = cart.find(item => item.name === name);
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    cart.push({ name, price, quantity: 1 });
+                }
+                updateCart();
+                showToast(`${name} added to cart!`);
+            }
+
+            function changeQuantity(index, change) {
+                const item = cart[index];
+                item.quantity += change;
+                if(item.quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCart();
+                showToast(`Cart updated.`);
+            }
+
+            function removeItem(index) {
+                const item = cart[index];
+                cart.splice(index, 1);
+                updateCart();
+                showToast(`${item.name} removed from cart.`);
+            }
+
+
+            // --- EVENT LISTENERS ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const card = e.target.closest('.card-content');
+                    const name = card.querySelector('.juice-name').textContent;
+                    const price = parseFloat(card.querySelector('.juice-price').dataset.price);
+                    addToCart(name, price);
+                });
+            });
+
+            cartItemsContainer.addEventListener('click', (e) => {
+                const target = e.target;
+                const index = parseInt(target.dataset.index);
+
+                if(target.classList.contains('increment-btn')) {
+                    changeQuantity(index, 1);
+                } else if (target.classList.contains('decrement-btn')) {
+                    changeQuantity(index, -1);
+                } else if (target.classList.contains('remove-item-btn')) {
+                    removeItem(index);
+                }
+            });
+
+            cartButton.addEventListener('click', () => showModal(cartModal));
+            closeCartModalBtn.addEventListener('click', () => hideModal(cartModal));
+            cartModal.addEventListener('click', (e) => {
+                if (e.target === cartModal) hideModal(cartModal);
+            });
+
+            checkoutBtn.addEventListener('click', () => {
+                hideModal(cartModal);
+                showModal(contactModal);
+            });
+
+            closeContactModalBtn.addEventListener('click', () => hideModal(contactModal));
+            contactModal.addEventListener('click', (e) => {
+                if (e.target === contactModal) hideModal(contactModal);
+            });
+
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = e.target.name.value;
+                const contactNo = e.target['contact-no'].value;
+                const address = e.target.address.value;
+                const phoneNumber = "919511773238";
+
+                let message = `*New Order from Juice Corner Website* 🎉\n\n`;
+                message += `*Customer Name:* ${name}\n`;
+                message += `*Contact No.:* ${contactNo}\n`;
+                message += `*Delivery Address:* ${address}\n\n`;
+                message += `*Order Details:*\n`;
+                
+                cart.forEach(item => {
+                    message += `- ${item.name} (x${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                message += `\n*Total Amount:* ₹${total.toFixed(2)}`;
+
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+                window.open(whatsappUrl, '_blank');
+
+                // Reset state
+                cart = [];
+                updateCart();
+                hideModal(contactModal);
+                e.target.reset();
+                showToast("Order placed successfully!");
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                    }
+                });
+            });
+
+            // Initial cart update
+            updateCart();
+        });
+    </script>
+</body>
+</html>
+
